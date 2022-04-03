@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+    nginx:
+        image: nginx
+        container_name: cngx
+        ports:
+            - 80:2420
+        volumes:
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf # 挂载配置文件
+        depends_on:
+            - tomcat01
+            - tomcat02
+            - tomcat03
+
+    tomcat01:
+        image: tomcat
+        container_name: ctc1
+        volumes:
+            - ./tomcat1:/usr/local/tomcat/webapps/ROOT # 挂载web目录
+
+    tomcat02:
+        image: tomcat
+        container_name: ctc2
+        volumes:
+            - ./tomcat2:/usr/local/tomcat/webapps/ROOT
+
+    tomcat03:
+        image: tomcat
+        container_name: ctc3
+        volumes:
+            - ./tomcat3:/usr/local/tomcat/webapps/ROOT
+
