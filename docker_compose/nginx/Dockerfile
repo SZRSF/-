@@ -1,0 +1,5 @@
+FROM nginx
+
+MAINTAINER ZZC{1278115909@qq.com}
+
+EXPOSE 80

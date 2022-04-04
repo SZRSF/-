@@ -1,0 +1,35 @@
+version: '3'
+services:
+  nginx:
+        image: nginx_image
+        container_name: nginx_container
+        build: ./nginx
+        ports:
+        - "80:80"
+        volumes:
+        - ./web:/www/web
+        - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+  php:
+       image: php_image
+       container_name: php_container
+       build: ./php
+       environment:
+         MYSQL_PASSWORD: 123456
+       volumes:
+       - ./web:/www/web
+  mysql:
+       image: mysql_image
+       container_name: mysql_container
+       build: ./mysql
+       ports:
+       - "3306:3306"
+       volumes:
+       - ./mysql/data:/var/lib/mysql
+  phpmyadmin:
+      image: phpmyadmin_image
+      container_name: phpmyadmin_container
+      build: ./phpmyadmin
+      ports:
+      - "8080:80"
+      environment:
+         PMA_HOST: mysql_container
