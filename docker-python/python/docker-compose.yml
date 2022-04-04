@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+    web:
+        build: docker-python/python
+        command: >
+            sh bin/start.sh
+        volumes:
+            - .:/code:cached
+        ports:
+            - "8000:8000"
+        depends_on:
+            - db
+    db:
+        image: postgres:10
+        environment:
+            - POSTGRES_DB="${POSTGRES_DB}"
+            - POSTGRES_USER="${POSTGRES_USER}"
+            - POSTGRES_PASSWORD="${POSTGRES_PASSWORD}"
+        ports:
+            - "5432:5432"
+        volumes:
+            - ~/postgres:/var/lib/postgresql/data
+
+volumes:
+    dbdata:
